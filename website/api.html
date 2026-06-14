@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="description" content="Bitweb Pool API Docs">
+  <meta name="theme-color" content="#131f33">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BTE API Docs">
+  <link rel="icon" type="image/svg+xml" href="assets/images/bte.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/bte-icon-180.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/images/bte-icon-192.png">
+  <link rel="manifest" href="manifest.json">
+  <title>Bitweb Pool API Docs</title>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/pool.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar sticky-top mp-navbar">
+    <div class="container-xl d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <a class="navbar-brand mp-brand" href="#">
+        <span>Bitweb Pool API Docs</span>
+        <span class="mp-brand-sub">API</span>
+      </a>
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <a class="mp-nav-btn" href="/" aria-label="Pool" title="Pool">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span class="d-none d-sm-inline">Pool</span>
+        </a>
+        <div class="dropdown">
+          <button class="mp-nav-btn mp-pool-btn dropdown-toggle" type="button" id="pool-select"
+                  data-bs-toggle="dropdown" aria-expanded="false" aria-label="Select pool">
+            <i class="fa-solid fa-layer-group mp-pool-icon"></i>
+            <span class="mp-pool-label" id="pool-label">— select pool —</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end mp-nav-menu" id="pool-menu"></ul>
+        </div>
+        <div class="dropdown">
+          <button class="mp-nav-btn dropdown-toggle" id="theme-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i id="theme-icon" class="fa-solid fa-circle-half-stroke"></i>
+            <span id="theme-label" class="d-none d-sm-inline">Auto</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end mp-nav-menu mp-theme-menu">
+            <li><button class="dropdown-item" data-theme="light"><i class="fa-regular fa-sun"></i><span>Light</span></button></li>
+            <li><button class="dropdown-item" data-theme="dark"><i class="fa-regular fa-moon"></i><span>Dark</span></button></li>
+            <li><button class="dropdown-item" data-theme="auto"><i class="fa-solid fa-circle-half-stroke"></i><span>Auto</span></button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-xl py-4">
+
+    <!-- Config bar -->
+    <div class="mc-config-bar mb-4">
+      <div class="mc-config-row">
+        <label class="mc-config-label" for="base-url">Base URL</label>
+        <div class="mc-config-input-wrap">
+          <input type="url" id="base-url" class="mc-config-input" placeholder="https://pool-api.bitwebcore.net" spellcheck="false" autocomplete="off">
+          <button class="mc-config-apply" id="apply-url" type="button">
+            <i class="fa-solid fa-check"></i> Apply
+          </button>
+        </div>
+        <span class="mc-config-hint">Requests are sent directly from the browser. CORS must be enabled on the pool API.</span>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav mp-tabs mb-4" id="api-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link mp-tab active" id="tab-pool" data-bs-toggle="tab" data-bs-target="#pane-pool" type="button" role="tab">
+          <i class="fa-solid fa-server"></i><span>Pool API</span>
+          <span class="mc-tab-count" id="count-pool"></span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link mp-tab" id="tab-miner" data-bs-toggle="tab" data-bs-target="#pane-miner" type="button" role="tab">
+          <i class="fa-solid fa-person-digging"></i><span>Miner API</span>
+          <span class="mc-tab-count" id="count-miner"></span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link mp-tab" id="tab-ws" data-bs-toggle="tab" data-bs-target="#pane-ws" type="button" role="tab">
+          <i class="fa-solid fa-bolt"></i><span>WebSocket</span>
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="pane-pool"  role="tabpanel"><div id="endpoints-pool"></div></div>
+      <div class="tab-pane fade"            id="pane-miner" role="tabpanel"><div id="endpoints-miner"></div></div>
+      <div class="tab-pane fade"            id="pane-ws"    role="tabpanel"><div id="ws-section"></div></div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mp-footer">
+    <div class="container-xl mp-footer-inner">
+      <a class="mp-footer-link" href="https://github.com/bitweb-project/miningcore-ui" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-github"></i>
+        <span>Bitweb</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/docs.js"></script>
+</body>
+</html>
