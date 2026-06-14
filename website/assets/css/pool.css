@@ -529,6 +529,14 @@ a:hover { text-decoration: underline; }
   white-space: nowrap;
 }
 .mp-cmd-copy:hover { color: var(--tab-active); border-color: var(--tab-active); }
+.mp-gen-dl-row { margin-top: 4px; margin-bottom: 0; }
+.mp-gen-dl-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--tab-active); text-decoration: none;
+  opacity: 0.85; transition: opacity 0.15s;
+}
+.mp-gen-dl-link:hover { opacity: 1; text-decoration: underline; }
 
 /* My Miner */
 .mp-login-wrap { max-width: 460px; margin: 52px auto; text-align: center; }

@@ -1280,7 +1280,15 @@
     cmdGrp.appendChild(cmdWrap);
     cmdRow.appendChild(cmdGrp);
 
-    card.append(row1, stratumRow, row2, cmdRow);
+    const dlRow = mk('div', 'mp-gen-row mp-gen-dl-row');
+    const dlA   = mk('a', 'mp-gen-dl-link');
+    dlA.href   = 'https://github.com/bitweb-project/cpuminer-opt/releases/latest';
+    dlA.target = '_blank';
+    dlA.rel    = 'noopener noreferrer';
+    dlA.innerHTML = '<i class="fa-solid fa-download"></i> Download cpuminer-opt (latest release)';
+    dlRow.appendChild(dlA);
+
+    card.append(row1, stratumRow, row2, cmdRow, dlRow);
 
     const buildCmd = () => {
       const port    = safe(portSel.value);
