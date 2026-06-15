@@ -1338,10 +1338,11 @@
         const thr  = Math.max(1, parseInt(thrInp.value, 10) || 1);
         cmd = `cpuminer-${arch} -a ${algo} -o ${server} -u ${user} -p ${pass} -t ${thr}`;
       } else {
+        const arch = safe(archSel.value);
         const gpuType = mode === 'opencl' ? 'OpenCL' : 'CUDA';
         const bs  = Math.max(64, parseInt(bsInp.value, 10) || 3484);
         const gid = Math.max(0, parseInt(gpuInp.value, 10) || 0);
-        cmd = `cpuminer-sse2 -a ${algo} --use-gpu ${gpuType} -o ${server} -u ${user} -p ${pass} --gpu-batchsize ${bs} --gpu-id ${gid}`;
+        cmd = `cpuminer-${arch} -a ${algo} --use-gpu ${gpuType} -o ${server} -u ${user} -p ${pass} --gpu-batchsize ${bs} --gpu-id ${gid}`;
       }
       cmdBox.textContent = cmd;
     };
@@ -1353,7 +1354,6 @@
 
     const toggleGpu = () => {
       const gpu = modeSel.value !== 'cpu';
-      archGrp.classList.toggle('mp-gen-group--hidden', gpu);
       thrGrp.classList.toggle('mp-gen-group--hidden', gpu);
       bsGrp.classList.toggle('mp-gen-group--hidden', !gpu);
       gpuGrp.classList.toggle('mp-gen-group--hidden', !gpu);
@@ -1505,7 +1505,6 @@
       const addrEl = mk('div', 'mp-miner-addr');
       addrEl.textContent = fmt.addr(addr);
       addrEl.title = addr;
-      applyCopyAddr(addrEl, safe(addr));
       hdr.append(addrEl, makeForgetBtn(wrap));
       wrap.appendChild(hdr);
 
@@ -1921,23 +1920,6 @@
     const div = mk('div', 'mp-forget-wrap');
     div.appendChild(makeForgetBtn(wrap));
     wrap.appendChild(div);
-  };
-
-  // Replaces native browser title tooltip on addresses.
-  // Adds cursor:pointer + click-to-copy with a brief inline ✓ flash.
-  const applyCopyAddr = (el, fullAddr) => {
-    el.classList.add('mp-addr-copy');
-    el.addEventListener('click', () => {
-      navigator.clipboard?.writeText(fullAddr).then(() => {
-        const was = el.textContent;
-        el.textContent = t('start.copied');
-        el.classList.add('mp-addr-copied');
-        setTimeout(() => {
-          el.textContent = was;
-          el.classList.remove('mp-addr-copied');
-        }, 1200);
-      });
-    });
   };
 
   const appendMetricRow = (card, labelKey, value, cls, id) => {
