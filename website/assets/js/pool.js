@@ -1404,8 +1404,9 @@
       }
 
       const pp = S.pool?.pool?.paymentProcessing || {};
-      if (mStats.lastPayment && pp.paymentIntervalSeconds && S.mmCountdown) {
-        S.mmCountdown.reset(mStats.lastPayment);
+      const poolLastPaymentTimePoll = S.pool?.pool?.lastPaymentTime;
+      if (poolLastPaymentTimePoll && pp.paymentIntervalSeconds && S.mmCountdown) {
+        S.mmCountdown.reset(poolLastPaymentTimePoll);
       }
 
       const perfWorkers = Object.values(mStats.performance?.workers ?? {});
@@ -1521,9 +1522,10 @@
           ? `${mStats.totalConfirmedBlocks} ${t('blocks.confirmed')} / ${mStats.totalPendingBlocks ?? 0} ${t('blocks.pending')}${mStats.totalOrphanedBlocks > 0 ? ` / ${mStats.totalOrphanedBlocks} ${t('blocks.orphaned')}` : ''}` : null, null, 'mm-blocks-found'],
       ]);
 
-      if (mStats.lastPayment && pp.paymentIntervalSeconds) {
+      const poolLastPaymentTime = S.pool?.pool?.lastPaymentTime;
+      if (poolLastPaymentTime && pp.paymentIntervalSeconds) {
         S.mmCountdown?.destroy();
-        S.mmCountdown = CountdownTick.build(balCard, mStats.lastPayment, pp.paymentIntervalSeconds);
+        S.mmCountdown = CountdownTick.build(balCard, poolLastPaymentTime, pp.paymentIntervalSeconds);
       }
 
       const perfWorkers = Object.values(mStats.performance?.workers ?? {});
